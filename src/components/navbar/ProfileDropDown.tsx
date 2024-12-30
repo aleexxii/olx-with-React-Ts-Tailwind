@@ -4,7 +4,7 @@ type ProfileDropdownProps = {
     isOpen?: boolean;
   }
 const ProfileDropdown = ({isOpen}:ProfileDropdownProps): JSX.Element => {
-    const {user} = useAuth()
+    const {user, logoutUser} = useAuth()
     const profileURL = user?.photoURL
     const displayName = user?.displayName
   const menuItems = [
@@ -14,7 +14,7 @@ const ProfileDropdown = ({isOpen}:ProfileDropdownProps): JSX.Element => {
     { icon: HelpCircle, text: 'Help', href: '#' },
     { icon: Settings, text: 'Settings', href: '#' },
     { icon: Download, text: 'Install OLX Lite app', href: '#' },
-    { icon: LogOut, text: 'Logout', href: '#' },
+    { icon: LogOut, text: 'Logout', onclick:logoutUser },
   ];
 
   return (
@@ -59,6 +59,7 @@ const ProfileDropdown = ({isOpen}:ProfileDropdownProps): JSX.Element => {
                 key={index}
                 href={item.href}
                 className="flex items-center space-x-3 px-4 py-3 hover:bg-teal-300 transition-colors"
+                onClick={item.onclick}
               >
                 <item.icon className="w-5 h-5 text-gray-600" />
                 <span className="text-gray-700">{item.text}</span>

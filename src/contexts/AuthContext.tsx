@@ -10,6 +10,7 @@ interface User {
 interface AuthContextType {
     user: User | null;
     loginWithGoogle: () => Promise<void>;
+    logoutUser : () => Promise<void>
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);

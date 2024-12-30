@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import app from './firebaseApp'
 
 const auth = getAuth(app)
@@ -13,6 +13,9 @@ interface User {
 
 export const signInWithGoogle = async () : Promise <User | null>  => {
 try {
+    googleProvider.setCustomParameters({
+        prompt: 'select_account', 
+      });
     const result = await signInWithPopup(auth,googleProvider)
 
     const user = result.user
@@ -31,4 +34,14 @@ try {
     console.log(error);
     return null
 }
+}
+
+export const logout = async () => {
+    try {
+        await signOut(auth)
+        localStorage.removeItem("user");
+
+    } catch (error) {
+        console.log(error);
+    }
 }

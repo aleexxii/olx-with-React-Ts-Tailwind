@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { signInWithGoogle } from '../services/googleAuth'
+import { logout, signInWithGoogle } from '../services/googleAuth'
 import { AuthContext } from './AuthContext'
 
 
@@ -28,8 +28,17 @@ export const AuthProvider:React.FC<{children: React.ReactNode}> = ({children}) =
         }
     }
 
+    const logoutUser = async () => {
+        try {
+            await logout()
+            setUser(null)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{user, loginWithGoogle}} >
+        <AuthContext.Provider value={{user, loginWithGoogle, logoutUser}} >
             {children}
         </AuthContext.Provider>
     )
