@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Carousel } from "flowbite-react";
 import { ChevronDown, ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
+import ProfileDropdown from "./ProfileDropDown";
 
 const Login = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isProfilDropDownVisble, setIsProfilDropDownVisble] = useState<boolean>(false)
   const {user} = useAuth()
   const photoURL = user?.photoURL
   const openModal = () => setIsModalVisible(true);
@@ -13,12 +15,15 @@ const Login = () => {
   return (
     <div>
       {user ? 
-      <div className="w-[80px] h-[35px] flex">
+      <div className="w-[80px] h-[35px] flex" onClick={() => setIsProfilDropDownVisble(!isProfilDropDownVisble)}>
         <div className="h-[35px] w-[35px] rounded-full">
       <img src={photoURL} alt="" className="h-[35px] w-[35px] rounded-full"/>
         </div>
         <div className="ps-1 flex items-center">
           <ChevronDown size={30}/>
+        </div>
+        <div className="mt-10">
+        {isProfilDropDownVisble && <ProfileDropdown isOpen={isProfilDropDownVisble}/>}
         </div>
       </div>  : 
       <>
