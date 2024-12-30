@@ -1,13 +1,15 @@
-import './App.css'
-import Navbar from './components/navbar/Navbar'
+import "./App.css";
+import Navbar from "./components/navbar/Navbar";
+import { AuthProvider } from "./contexts/AuthProvider";
 
 function App() {
-
   return (
     <>
-      <Navbar />
+      <AuthProvider>
+        <Navbar />
+      </AuthProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

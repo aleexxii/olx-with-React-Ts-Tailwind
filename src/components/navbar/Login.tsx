@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { Carousel } from "flowbite-react";
-import { ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
+  const {user} = useAuth()
+  const photoURL = user?.photoURL
   const openModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
 
   return (
     <div>
+      {user ? 
+      <div className="w-[80px] h-[35px] flex">
+        <div className="h-[35px] w-[35px] rounded-full">
+      <img src={photoURL} alt="" className="h-[35px] w-[35px] rounded-full"/>
+        </div>
+        <div className="ps-1 flex items-center">
+          <ChevronDown size={30}/>
+        </div>
+      </div>  : 
+      <>
       <button
         className="underline hover:no-underline font-poppins font-medium"
         onClick={openModal}
@@ -17,6 +29,8 @@ const Login = () => {
         Login
       </button>
       <LoginModal isVisible={isModalVisible} onClose={closeModal} />
+      </>
+      }
     </div>
   );
 };
@@ -27,8 +41,8 @@ type ModalProps = {
 };
 
 const LoginModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
+  const {loginWithGoogle} = useAuth()
   if (!isVisible) return null;
-
   return (
     <>
       <div
@@ -71,7 +85,7 @@ const LoginModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
                 Continue with phone
                 </span>
               </div>
-              <div className="flex border-2 border-black p-3 hover:bg-slate-300 rounded text-slate-700 font-semibold">
+              <div className="flex border-2 border-black p-3 hover:bg-slate-300 rounded text-slate-700 font-semibold" onClick={loginWithGoogle}>
                 continue with google
               </div>
             </div>
