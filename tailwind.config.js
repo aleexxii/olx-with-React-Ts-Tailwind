@@ -13,6 +13,9 @@ export default {
       fontFamily : {
         roboto : ['Roboto', 'sans-serif'],
         poppins : ['Poppins']
+      },
+      colors : {
+        lightGrey : '#EBEEEF',
       }
     },
   },

@@ -1,12 +1,12 @@
 import "./App.css";
-import Navbar from "./components/navbar/Navbar";
 import { AuthProvider } from "./contexts/AuthProvider";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <Navbar />
+        <Home />
       </AuthProvider>
     </>
   );
