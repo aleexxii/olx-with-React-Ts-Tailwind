@@ -1,41 +1,67 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Carousel } from "flowbite-react";
-import { ChevronDown, ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
+import {
+  Bell,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  MessageCircle,
+  Smartphone,
+} from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 import ProfileDropdown from "./ProfileDropDown";
+import { initialState, navbarReducer } from "../../reducers/NavbarReducer";
 
 const Login = () => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [isProfilDropDownVisble, setIsProfilDropDownVisble] = useState<boolean>(false)
-  const {user} = useAuth()
-  const photoURL = user?.photoURL
-  const openModal = () => setIsModalVisible(true);
-  const closeModal = () => setIsModalVisible(false);
+
+  const [state, dispatch] = useReducer(navbarReducer, initialState)
+
+  const [isProfilDropDownVisble, setIsProfilDropDownVisble] =
+    useState<boolean>(false);
+  const { user } = useAuth();
+  const photoURL = user?.photoURL;
 
   return (
     <div>
-      {user ? 
-      <div className="w-[80px] h-[35px] flex" onClick={() => setIsProfilDropDownVisble(!isProfilDropDownVisble)}>
-        <div className="h-[35px] w-[35px] rounded-full">
-      <img src={photoURL} alt="" className="h-[35px] w-[35px] rounded-full"/>
+      {user ? (
+        <div className="flex items-center justify-center gap-4">
+          
+            <MessageCircle />
+          
+            <Bell />
+          
+          <div
+            className="w-[80px] h-[35px] flex"
+            onClick={() => setIsProfilDropDownVisble(!isProfilDropDownVisble)}
+          >
+            <div className="h-[35px] w-[35px] rounded-full">
+              <img
+                src={photoURL}
+                alt=''
+                className="h-[35px] w-[35px] rounded-full"
+              />
+            </div>
+            <div className="ps-1 flex items-center">
+              <ChevronDown size={30} />
+            </div>
+            <div className="mt-10">
+              {isProfilDropDownVisble && (
+                <ProfileDropdown isOpen={isProfilDropDownVisble} />
+              )}
+            </div>
+          </div>
         </div>
-        <div className="ps-1 flex items-center">
-          <ChevronDown size={30}/>
-        </div>
-        <div className="mt-10">
-        {isProfilDropDownVisble && <ProfileDropdown isOpen={isProfilDropDownVisble}/>}
-        </div>
-      </div>  : 
-      <>
-      <button
-        className="underline hover:no-underline font-poppins font-medium"
-        onClick={openModal}
-      >
-        Login
-      </button>
-      <LoginModal isVisible={isModalVisible} onClose={closeModal} />
-      </>
-      }
+      ) : (
+        <>
+          <button
+            className="underline hover:no-underline font-poppins font-medium"
+            onClick={() => dispatch({type : 'OPEN_LOGIN_MODAL'})}
+          >
+            Login
+          </button>
+          {state.showLoginModal && <LoginModal isVisible={state.showLoginModal} onClose={() => dispatch({type : 'CLOSE_LOGIN_MODAL'})}/>}      
+        </>
+      )}
     </div>
   );
 };
@@ -45,8 +71,8 @@ type ModalProps = {
   onClose: () => void;
 };
 
-const LoginModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
-  const {loginWithGoogle} = useAuth()
+export const LoginModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
+  const { loginWithGoogle } = useAuth();
   if (!isVisible) return null;
   return (
     <>
@@ -56,7 +82,7 @@ const LoginModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
         aria-hidden={!isVisible}
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full">
-          <div className="relative rounded-lg shadow dark:bg-gray-700">
+          <div className="relative rounded-lg shadow dark:bg-gray-700 bg-white">
             <div className=" h-[220px] w-[360px] items-center">
               <LoginCarousal />
               <button
@@ -86,11 +112,12 @@ const LoginModal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
             <div className="p-4 md:p-5 space-y-4">
               <div className="flex border-2 border-black p-3 hover:border-4 rounded text-slate-700 font-bold">
                 <Smartphone />
-                <span className="ps-2">
-                Continue with phone
-                </span>
+                <span className="ps-2">Continue with phone</span>
               </div>
-              <div className="flex border-2 border-black p-3 hover:bg-slate-300 rounded text-slate-700 font-semibold" onClick={loginWithGoogle}>
+              <div
+                className="flex border-2 border-black p-3 hover:bg-slate-300 rounded text-slate-700 font-semibold"
+                onClick={loginWithGoogle}
+              >
                 continue with google
               </div>
             </div>
@@ -135,7 +162,9 @@ const LoginCarousal = () => {
           alt="..."
           className="h-24 w-24"
         />
-        <span className="ps-8 pe-8 flex items-center justify-center text-center font-medium text-slate-700 font-roboto">Help us become one of the safest places to buy and sell</span>
+        <span className="ps-8 pe-8 flex items-center justify-center text-center font-medium text-slate-700 font-roboto">
+          Help us become one of the safest places to buy and sell
+        </span>
       </div>
       <div className="justify-items-center">
         <img
@@ -143,11 +172,15 @@ const LoginCarousal = () => {
           alt="..."
           className="h-24 w-24"
         />
-        <p className="ps-8 pe-8 flex items-center justify-center text-center font-medium text-slate-700 font-roboto">Close deals from the comfort of your home.</p>
+        <p className="ps-8 pe-8 flex items-center justify-center text-center font-medium text-slate-700 font-roboto">
+          Close deals from the comfort of your home.
+        </p>
       </div>
       <div className="justify-items-center">
         <img src="/LoginModal/point_chat.png" alt="..." className="h-24 w-24" />
-        <p className="ps-8 pe-8 flex items-center justify-center text-center font-medium text-slate-700 font-roboto">Keep all your favourites in one place.</p>
+        <p className="ps-8 pe-8 flex items-center justify-center text-center font-medium text-slate-700 font-roboto">
+          Keep all your favourites in one place.
+        </p>
       </div>
     </Carousel>
   );
