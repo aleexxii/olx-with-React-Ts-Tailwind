@@ -2,7 +2,7 @@ import { Search } from "lucide-react"
 
 const SearchBox = () => {
   return (
-    <div className="flex h-12 w-[771.94px] bg-white border-2 border-black rounded">
+    <div className="flex h-12 w-[648.8px] bg-white border-2 border-black rounded">
 
   <div className="flex flex-1 items-center px-4">
     <input
