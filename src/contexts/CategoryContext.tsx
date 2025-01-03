@@ -25,11 +25,16 @@ export const CategoryProvider: React.FC<CategoryProviderProps> = ({
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const fetchCategories = async () => {
-    const snapShot = await getDocs(collection(db, "categories"));
-    const fetchedCategories = snapShot.docs.map(
-      (doc) => doc.data() as Category
-    );
-    setCategories(fetchedCategories);
+    try {
+      const snapShot = await getDocs(collection(db, "categories"));
+      const fetchedCategories = snapShot.docs.map(
+        (doc) => doc.data() as Category
+      );
+      console.log("Fetched Categories:", fetchedCategories)
+      setCategories(fetchedCategories);
+    } catch (error) {
+      console.log("Error fetching categories :", error);
+    }
   };
 
   useEffect(() => {
