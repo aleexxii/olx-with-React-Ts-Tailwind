@@ -30,7 +30,7 @@ export const CategoryProvider: React.FC<CategoryProviderProps> = ({
       const fetchedCategories = snapShot.docs.map(
         (doc) => doc.data() as Category
       );
-      console.log("Fetched Categories:", fetchedCategories)
+      
       setCategories(fetchedCategories);
     } catch (error) {
       console.log("Error fetching categories :", error);
