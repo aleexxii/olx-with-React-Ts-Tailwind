@@ -2,7 +2,9 @@ import HomePageTopAd from "../components/advertise/HomePageTopAd";
 import ProductCard from "../components/home/ProductCard";
 import Layout from "../components/Layout";
 
+
 const Home = () => {
+  
   const products = [
     {
       id: 1,

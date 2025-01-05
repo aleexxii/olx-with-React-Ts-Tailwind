@@ -1,9 +1,4 @@
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
 import { app, db } from "./firebaseApp";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -12,15 +7,14 @@ const auth = getAuth(app);
 export const signInWithGoogle = async () => {
   try {
     const googleProvider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, googleProvider);
-
+    
     googleProvider.setCustomParameters({
-      prompt: "select_account",
+        prompt: "select_account",
     });
-
+    
+    const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
 
-    console.log("user : ", user);
 
     await setDoc(doc(db, "users", user.uid), {
       uid: user.uid,
