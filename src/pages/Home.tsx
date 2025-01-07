@@ -1,26 +1,13 @@
 import HomePageTopAd from "../components/advertise/HomePageTopAd";
 import ProductCard from "../components/home/ProductCard";
 import Layout from "../components/Layout";
+import { useProducts } from "../hooks/useProducts";
 
 
 const Home = () => {
   
-  const products = [
-    {
-      id: 1,
-      title: "Phone",
-      price: "200",
-      imageUrl: "/images/phone.jpg",
-      details: "fadadfad",
-    },
-    {
-      id: 2,
-      title: "Laptop",
-      price: "1000",
-      imageUrl: "/images/laptop.jpg",
-      details: "fadadfad",
-    },
-  ];
+  const { products } = useProducts()
+
   return (
     <div>
       <Layout>
@@ -30,10 +17,10 @@ const Home = () => {
             {products?.map((product) => (
               <ProductCard
                 key={product.id}
-                image={product.imageUrl}
+                image={product.image}
                 price={product.price}
                 title={product.title}
-                details={product.details}
+                description={product.description}
               />
             ))}
           </div>

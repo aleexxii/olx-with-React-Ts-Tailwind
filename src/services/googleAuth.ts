@@ -4,6 +4,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 const auth = getAuth(app);
 
+
 export const signInWithGoogle = async () => {
   try {
     const googleProvider = new GoogleAuthProvider();
@@ -28,7 +29,12 @@ export const signInWithGoogle = async () => {
       return null;
     }
 
-    console.log('user signed in and data saved...!');
+    return {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL || undefined,
+  };
+
   } catch (error) {
     console.log(error);
     return null;

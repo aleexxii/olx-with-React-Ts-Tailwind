@@ -3,10 +3,10 @@ interface ProductCardProps {
     image : string;
     price : string;
     title : string;
-    details ?: string
+    description ?: string
 }
 
-const ProductCard : React.FC<ProductCardProps> = ({image, price, title, details}) => {
+const ProductCard : React.FC<ProductCardProps> = ({image, price, title, description}) => {
   return (
     <div className="p-4 border border-gray-300 rounded">
       <div className="h-40 bg-violet-400 flex items-center justify-center">
@@ -18,11 +18,11 @@ const ProductCard : React.FC<ProductCardProps> = ({image, price, title, details}
       </div>
       <div className="p-3 mt-2 flex flex-col justify-between">
         <p className="text-lg font-semibold mt-1">₹ {price}</p>
-        <p className="text-sm ">{details}</p>
         <h2 className="text-gray-700">{title}</h2>
-        <div className="mt-2 flex justify-between text-sm text-gray-600">
-          <span>📍 Location</span>
-          <span>📅 Date</span>
+        <p className="text-sm line-clamp-1">{description}</p>
+        <div className="mt-2 flex justify-between text-xs text-gray-600">
+          <span>AALINCHUVADU, TIRUR</span>
+          <span>DEC 23</span>
         </div>
       </div>
     </div>
