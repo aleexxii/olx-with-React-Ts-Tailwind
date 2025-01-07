@@ -2,6 +2,7 @@ import HomePageTopAd from "../components/advertise/HomePageTopAd";
 import ProductCard from "../components/home/ProductCard";
 import Layout from "../components/Layout";
 import { useProducts } from "../hooks/useProducts";
+import { Product } from "../types/productTypes";
 
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
         <HomePageTopAd />
         <div className="px-[100px] py-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px]">
-            {products?.map((product) => (
+            {products?.map((product : Product) => (
               <ProductCard
                 key={product.id}
                 image={product.image}
