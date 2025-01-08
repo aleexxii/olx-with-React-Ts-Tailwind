@@ -9,7 +9,7 @@ interface ProductCardProps {
 const ProductCard : React.FC<ProductCardProps> = ({image, price, title, description}) => {
   return (
     <div className="p-4 border border-gray-300 rounded">
-      <div className="h-40 bg-violet-400 flex items-center justify-center">
+      <div className="h-40 flex items-center justify-center">
         <img
           src={image}
           alt="Product"
