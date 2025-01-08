@@ -17,7 +17,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/post" element={<Post />} />
-                <Route path="/product" element={<ProductView />} />
+                <Route path="/product-view/:id" element={<ProductView />} />
               </Routes>
             </Router>
           </CategoryProvider>

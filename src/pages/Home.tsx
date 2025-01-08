@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import HomePageTopAd from "../components/advertise/HomePageTopAd";
 import ProductCard from "../components/home/ProductCard";
 import Layout from "../components/Layout";
@@ -14,13 +15,15 @@ const Home = () => {
         <div className="px-[100px] py-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px]">
             {products?.map((product: Product) => (
-              <ProductCard
-                key={product.id}
-                image={product.image}
-                price={product.price}
-                title={product.title}
-                description={product.description}
-              />
+              <Link to={`/product-view/${product.id}`} key={product.id}>
+                <ProductCard
+                  key={product.id}
+                  image={product.image}
+                  price={product.price}
+                  title={product.title}
+                  description={product.description}
+                />
+              </Link>
             ))}
           </div>
         </div>
